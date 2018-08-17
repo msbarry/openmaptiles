@@ -108,7 +108,7 @@ services:
     - postgres_conn
     env_file: .env
   generate-vectortiles:
-    image: "openmaptiles/generate-vectortiles:0.1.1"
+    build: ./generate-vectortiles
     volumes:
     - ./data:/export
     - ./build/openmaptiles.tm2source:/tm2source
@@ -116,10 +116,8 @@ services:
     - postgres_conn
     env_file: .env
     environment:
-      #BBOX: "8.25,46.97,9.58,47.52"
-      #BBOX: "5.97,45.75,10.7,47.72"
-      BBOX: ${BBOX}
-      MIN_ZOOM: ${MIN_ZOOM}
+      SHARD: ${SHARD}
+      SHARDS: ${SHARDS}
       MAX_ZOOM: ${MAX_ZOOM}
   postserve:
     image: "openmaptiles/postserve:0.2"
